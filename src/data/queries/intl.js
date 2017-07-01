@@ -19,7 +19,7 @@ import IntlMessageType from '../types/IntlMessageType';
 import { locales } from '../../config';
 
 // A folder with messages
-const CONTENT_DIR = join(__dirname, './messages');
+const CONTENT_DIR = join(__dirname, '../src/messages');
 
 const readFile = Promise.promisify(fs.readFile);
 

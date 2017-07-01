@@ -16,7 +16,7 @@ import bodyParser from 'body-parser';
 import expressJwt, { UnauthorizedError as Jwt401Error } from 'express-jwt';
 import expressGraphQL from 'express-graphql';
 import jwt from 'jsonwebtoken';
-import fetch from 'node-fetch';
+import nodeFetch from 'node-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { getDataFromTree } from 'react-apollo';
@@ -127,11 +127,12 @@ app.get('*', async (req, res, next) => {
       rootValue: { request: req },
     });
 
-    const fetch = createFetch({
-      baseUrl: config.api.serverUrl,
-      cookie: req.headers.cookie,
-      apolloClient,
-    });
+    const fetch = createFetch(
+      nodeFetch, {
+        baseUrl: config.api.serverUrl,
+        cookie: req.headers.cookie,
+        apolloClient,
+      });
 
     const initialState = {
       user: req.user || null,

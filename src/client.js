@@ -22,7 +22,6 @@ import configureStore from './store/configureStore';
 import { updateMeta } from './DOMUtils';
 import history from './history';
 import router from './router';
-import { updateMeta } from './DOMUtils';
 import createApolloClient from './core/createApolloClient';
 
 const apolloClient = createApolloClient();
@@ -31,7 +30,7 @@ const apolloClient = createApolloClient();
 
 /* eslint-disable global-require */
 
-const fetch = createFetch({
+const fetch = createFetch(self.fetch, {
   baseUrl: window.App.apiUrl,
 });
 
@@ -54,9 +53,7 @@ const context = {
   store,
   storeSubscription: null,
   // Universal HTTP client
-  fetch: createFetch(self.fetch, {
-    baseUrl: window.App.apiUrl,
-  }),
+  fetch,
 };
 
 // Switch off the native scroll restoration behavior and handle it manually

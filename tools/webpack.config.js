@@ -22,6 +22,7 @@ const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('-
 const reScript = /\.jsx?$/;
 const reStyle = /\.(css|less|scss|sss)$/;
 const reImage = /\.(bmp|gif|jpe?g|png|svg)$/;
+const reGraphql = /\.(graphql|gql)$/;
 const staticAssetName = isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]';
 
 //
@@ -221,6 +222,7 @@ const config = {
           reScript,
           reStyle,
           reImage,
+          reGraphql,
           /\.json$/,
           /\.txt$/,
           /\.md$/,
@@ -238,6 +240,10 @@ const config = {
 
       // Exclude dev modules from production build
       ...isDebug ? [] : [
+        {
+          test: path.resolve(__dirname, '../node_modules/redbox-react/lib/index.js'),
+          loader: 'null-loader',
+        },
         {
           test: path.resolve(__dirname, '../node_modules/react-deep-force-update/lib/index.js'),
           loader: 'null-loader',
